@@ -1,0 +1,25 @@
+// Entity역할
+//	- 데이터의 저장과 조회, 변경, 삭제 관리.
+//	- 데이터의 지속성(Persistence)을 관리
+//	- Data Access Object(DAO)
+
+package exam.oop.score;
+
+public class ScoreDao {
+	Score[] scores = new Score[100];
+	int size;
+	
+	public ScoreDao(){
+		//size=0; 인스턴스는 알아서 초기화
+	}
+	
+	public void insert(Score score){
+		if(size<scores.length){
+			scores[size++] = score;
+		}
+	}
+	
+	public Score[] toArray(){
+		return this.scores;
+	}
+}
