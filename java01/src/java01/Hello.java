@@ -3,8 +3,16 @@ package java01;
 public class Hello {
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("안녕하세요");
+		Ex ex = new Ex();
+	  ex.method01(10); 
+	 }
+	
 	}
 
+
+class Ex{
+	int num = 10;
+	static void method01(int a){
+		System.out.println(2222);
+	}
 }

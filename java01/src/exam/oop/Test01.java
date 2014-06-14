@@ -9,6 +9,7 @@ import java.util.Scanner;
 // 성적 데이터의 새로운 데이터 타입은 Score로 하겠다
 // 개발자가 임의로 정의하는 데이터 타입 : 사용자 정의 데이터 타입(= C:구조체,Java:클래스)
 
+
 class Score {
 	// Score가 준비하는 메모리를 선언
 	String name;
@@ -19,6 +20,7 @@ class Score {
 	float average;
 }
 
+
 public class Test01 {
 	public static void main01(String[] args) {
 		int i; // 정수 값을 담을 4byte 메모리를 준비
@@ -27,6 +29,7 @@ public class Test01 {
 		// 문법: new 사용자정의데이터타입();
 		// * 이렇게 준비된 메모리를 사용하려면 메모리의 주소를 변수에 저장해야 한다.
 		// 문법: 사용자장의데이터타입 변수;
+		
 		Score s = new Score();
 		s.name = "홍길동";
 		s.kor = 100;
