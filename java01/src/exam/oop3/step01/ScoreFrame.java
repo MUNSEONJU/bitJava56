@@ -17,6 +17,10 @@ public class ScoreFrame  extends Frame {
 	public ScoreFrame() {
 		this.setTitle("비트 성적관리 시스템");
 		this.setSize(400, 300);
+		
+		//Frame의 addWindowListener
+		//	- addWindowListener(WindowListener 인터페이스로 구현된 Class의 주소)
+		//	- 구현된 Class안의 WindowListener에 해당하는 동작에 반응한다.
 		this.addWindowListener(new MyWindowListener());
 				
 		this.setLayout(new FlowLayout()); // import
