@@ -1,4 +1,4 @@
-package study.group001;
+package study.group;
 
 class A{
 	static int a=10;

@@ -1,4 +1,4 @@
-package exam.oop3AndAwt.step01;
+package exam.oop3.step01;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

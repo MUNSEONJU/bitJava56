@@ -5,4 +5,4 @@
  * @author SJ
  *
  */
-package study.group001;
+package study.group;

@@ -16,7 +16,7 @@
 int arr[] = {77, 24, 32};
 */
 
-package study.group001;
+package study.group;
 
 import java.util.Scanner;
 
