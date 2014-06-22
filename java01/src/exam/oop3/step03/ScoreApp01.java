@@ -3,7 +3,7 @@ package exam.oop3.step03;
 import java.awt.Frame;
 import exam.oop3.step03.ScoreFrame;
 
-public class ScoreApp extends Frame{
+public class ScoreApp01 extends Frame{
 
 	public static void main(String[] args) {
 		ScoreFrame f = new ScoreFrame();

@@ -6,6 +6,7 @@ package exam.oop3.step03;
  */
 
 import java.awt.Button;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -18,6 +19,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class ScoreFrame  extends Frame {
+	private TextField tfName = new TextField(20);
+	private TextField tfKor = new TextField(5);
+	private TextField tfEng = new TextField(5);
+	private TextField tfMath = new TextField(5);
+	
+	private ScoreDao scoreDao;
 	
 	public ScoreFrame() {
 		this.setTitle("비트 성적관리 시스템");
@@ -31,42 +38,99 @@ public class ScoreFrame  extends Frame {
 		
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
-		this.add( createTextInputPanel("이름", 20) );
-		this.add( createTextInputPanel("국어", 5) );
-		this.add( createTextInputPanel("영어", 5) );
-		this.add( createTextInputPanel("수학", 5) );
+		this.add( createRowPanel("이름", tfName) );
+		this.add( createRowPanel("국어", tfKor) );
+		this.add( createRowPanel("영어", tfEng) );
+		this.add( createRowPanel("수학", tfMath) );
 		
-		Button btn = new Button("추가");
-		btn.setPreferredSize(new Dimension(80, 40));
-		btn.addActionListener(new ActionListener() {
+		Panel toolbar = new Panel(new FlowLayout(FlowLayout.LEFT));
+		
+			Button btn = createToolbarButton("add");
+			btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 과제
-				System.out.println("이름, 국어, 영어, 수학 입력 값을 출력하라!");
+				Score score = new Score();
 				
+				score.setName(tfName.getText());
+				score.setKor( Integer.parseInt(tfKor.getText()) );
+				score.setEng( Integer.parseInt(tfEng.getText()) );
+				score.setMath( Integer.parseInt(tfMath.getText()) );
+				
+				scoreDao.insert(score); // Score Data Access Object 에게 저장
+				
+				//Refactor -> extract Method (메소드로 만들어줌)
+				clearForm();		
 			}
 		});
+		toolbar.add(btn);
 		
-		this.add(btn);
+		btn = createToolbarButton("<<");
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Press Left Button");
+				Score currentScore = scoreDao.previousScore();
+				if(currentScore == null){
+					System.out.println("First Index");
+				}else{
+					setForm(currentScore);
+				}
+			}
+		});
+		toolbar.add(btn);
 		
+		btn = createToolbarButton(">>");
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Press Right Button");
+				Score currentScore = scoreDao.nextScore();
+				if(currentScore == null){
+					System.out.println("Last Index");
+				}else{
+					setForm(currentScore);
+				}
+			}
+		});
+		toolbar.add(btn);
 		
+		this.add(toolbar);
 	}
 	
-	private Panel createTextInputPanel(String title, int textSize) {
-		// Panel의 기본 레이아웃 매니저 => FlowLayout(FlowLayout.CENTER)
-		Panel panel = new Panel(); 
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+	private Button createToolbarButton(String btnName){
+		Button btn = new Button(btnName);
+		btn.setPreferredSize(new Dimension(80, 30));
+		return btn;
+	}
+	
+	private Panel createRowPanel(String title, Component comp) {
+		Panel panel = new Panel(new FlowLayout(FlowLayout.LEFT)); 
 		panel.setPreferredSize(new Dimension(300, 25));
 		
 		Label label = new Label(title);
 		label.setPreferredSize(new Dimension(50, 25));
 		panel.add(label);
 		
-		TextField tf = new TextField(textSize);
-		panel.add(tf);
+		panel.add(comp);
 		
 		return panel;
 	}
 
+	public void setScoreDao(ScoreDao scoreDao) {
+	  this.scoreDao = scoreDao;
+  }
+
+	private void clearForm() {
+		tfName.setText("");
+		tfKor.setText("");
+		tfMath.setText("");
+		tfEng.setText("");
+	}
+
+	private void setForm(Score score){
+		tfName.setText(score.getName());
+		tfKor.setText(Integer.toString( score.getKor()) );
+		tfEng.setText(Integer.toString( score.getEng()) );
+		tfMath.setText(Integer.toString( score.getMath()) );
+	}
+	
 }
 
 

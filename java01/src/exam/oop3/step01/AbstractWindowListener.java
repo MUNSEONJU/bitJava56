@@ -9,7 +9,11 @@ import java.awt.event.WindowListener;
 //	- 추상클래스는 추상 메서드를 가질 수 있다.( Concreate class는 추상메서드를 가질 수 없다 )
 
 abstract public class AbstractWindowListener implements WindowListener {
-	// 구현하지 않으면 에러 뜸.
+	
+	
+	// - 여기서 구현을 다 해뒀기때문에 AbstractWindowListener를 상속받는 클래스는 Overriding만하면된다.
+	// - 만약 여기서 WindowListener(인터페이스)의 추상메서드들을 전부구현안했으면
+	//   상속받는 클래스는 나머지를 구현하거나, 추상클래스여야한다.
   public void windowOpened(WindowEvent e) {  }
   public void windowClosing(WindowEvent e) {  }
   public void windowClosed(WindowEvent e) {  }
