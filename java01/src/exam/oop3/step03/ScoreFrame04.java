@@ -1,15 +1,7 @@
 package exam.oop3.step03;
 
 // << , >> 버튼 추가 및 이벤트 처리
-// 	- Frame클래스가 ActionListener의 역할을 겸한다
-//	- oop 입장에서는 바람직하지 않다. 
-//		-> Low coupling, High cohesion(하나의 클래스는 하나의 역할을 수행한다)
-
-// ActionListener 규칙
-//	- 버튼클릭 이벤트를 처리하는 규칙
-//	- TextField의 Enter키 이벤트를 처리하는 규칙
-
-// 버튼에 Action이름을 설정한 후 이벤트 처리시에 사용한다.
+// 	- 하나의 inner class가 모든 버튼의 이벤트를 처리
 
 import java.awt.Button;
 import java.awt.Component;
@@ -24,48 +16,55 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class ScoreFrame  extends Frame implements ActionListener{
+public class ScoreFrame04  extends Frame {
 	private TextField tfName = new TextField(20);
 	private TextField tfKor = new TextField(5);
 	private TextField tfEng = new TextField(5);
 	private TextField tfMath = new TextField(5);
-
-	private ScoreDao scoreDao;
 	
-  public void actionPerformed(ActionEvent e) {
-  	// 이벤트 별 수행명령
-    if( e.getActionCommand().equals("scoreAdd") ){
-    	Score score = new Score();
-			
-			score.setName(tfName.getText());
-			score.setKor( Integer.parseInt(tfKor.getText()) );
-			score.setEng( Integer.parseInt(tfEng.getText()) );
-			score.setMath( Integer.parseInt(tfMath.getText()) );
-			
-			scoreDao.insert(score); // Score Data Access Object 에게 저장
-			
-			//Refactor -> extract Method (메소드로 만들어줌)
-			clearForm();		
-    } else if( e.getActionCommand().equals("scoreNext") ){
+	private Button btnAdd;
+	private Button btnPrevious;
+	private Button btnNext;
+	
+	//member inner class
+	class MyActionListener implements ActionListener{
+    public void actionPerformed(ActionEvent e) {
+    	// 이벤트 별 수행명령
+	    if(e.getSource() == btnAdd){
+	    	Score score = new Score();
+				
+				score.setName(tfName.getText());
+				score.setKor( Integer.parseInt(tfKor.getText()) );
+				score.setEng( Integer.parseInt(tfEng.getText()) );
+				score.setMath( Integer.parseInt(tfMath.getText()) );
+				
+				scoreDao.insert(score); // Score Data Access Object 에게 저장
+				
+				//Refactor -> extract Method (메소드로 만들어줌)
+				clearForm();		
+	    } else if(e.getSource() == btnNext){
 	    	System.out.println("Pressed Right Button");
 				Score currentScore = scoreDao.nextScore();
 				if(currentScore == null){
 					System.out.println("Last Index");
-				} else {
+				}else{
 					setForm(currentScore);
 				}
-    } else if( e.getActionCommand().equals("scorePrevious") ){
+	    } else if(e.getSource() == btnPrevious){
 	    	System.out.println("Pressed Left Button");
 				Score currentScore = scoreDao.previousScore();
 				if(currentScore == null){
 					System.out.println("First Index");
-				} else {
+				}else{
 					setForm(currentScore);
 				}
+	    }
     }
-  }
+	}
 	
-	public ScoreFrame() {
+	private ScoreDao scoreDao;
+	
+	public ScoreFrame04() {
 		this.setTitle("비트 성적관리 시스템");
 		this.setSize(400, 300);
 		
@@ -83,26 +82,24 @@ public class ScoreFrame  extends Frame implements ActionListener{
 		this.add( createRowPanel("수학", tfMath) );
 		
 		Panel toolbar = new Panel(new FlowLayout(FlowLayout.LEFT));
-			
-		Button btn = createToolbarButton("add");
-		btn.setActionCommand("scoreAdd");
-		btn.addActionListener(this);
-		toolbar.add(btn);
 		
-		btn = createToolbarButton("<<");
-		btn.setActionCommand("scorePrevious");
-		btn.addActionListener(this);
-		toolbar.add(btn);
+		MyActionListener btnListener = new MyActionListener();
 		
-		btn = createToolbarButton(">>");
-		btn.setActionCommand("scoreNext");
-		btn.addActionListener(this);
-		toolbar.add(btn);
+		btnAdd = createToolbarButton("add");
+		btnAdd.addActionListener(btnListener);
+		toolbar.add(btnAdd);
+		
+		btnPrevious = createToolbarButton("<<");
+		btnPrevious.addActionListener(btnListener);
+		toolbar.add(btnPrevious);
+		
+		btnNext = createToolbarButton(">>");
+		btnNext.addActionListener(btnListener);
+		toolbar.add(btnNext);
 		
 		this.add(toolbar);
 	}
 	
-
 	private Button createToolbarButton(String btnName){
 		Button btn = new Button(btnName);
 		btn.setPreferredSize(new Dimension(80, 30));

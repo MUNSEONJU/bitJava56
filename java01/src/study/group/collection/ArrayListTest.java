@@ -33,8 +33,8 @@ public class ArrayListTest {
 		list.add(p1);
 		list.add(p2);
 		list.add(p3);
-		list.removeAll(list);
-		System.out.println(list);
+		//list.removeAll(list);
+		//System.out.println(list);
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).name.equals("강민수")) { // refactoring ( == 비교연산자 -> equals(문자열))
 				System.out.println(list.get(i).name + " : " + list.get(i).age);

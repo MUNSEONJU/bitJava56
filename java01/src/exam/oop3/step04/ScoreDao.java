@@ -3,7 +3,7 @@
 //	- 데이터의 지속성(Persistence)을 관리
 //	- Data Access Object(DAO)
 
-package exam.oop3.step03;
+package exam.oop3.step04;
 
 public class ScoreDao {
 	Score[] scores = new Score[100];
