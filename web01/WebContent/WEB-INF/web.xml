@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>web01</display-name>
+  
+  <context-param>
+    <param-name>driver</param-name>
+     <param-value>com.mysql.jdbc.Driver</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>url</param-name>
+    <param-value>jdbc:mysql://localhost:3306/bitdb?useUnicode=true&amp;characterEncoding=UTF-8</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>username</param-name>
+    <param-value>bit</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>password</param-name>
+    <param-value>1111</param-value>
+  </context-param>
+  
+  
+  <!-- Listener 선언 -->
+  
+  <listener>  
+    <listener-class>servlets.step04.ContextLoaderListener</listener-class>
+  </listener>
+  
+   
+  <!-- 필터 클래스 선언 -->
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>servlets.step04.CharacterEncodingFilter</filter-class>
+    <init-param>
+    <param-name>charset</param-name>
+    <param-value>UTF-8</param-value>
+    </init-param>
+    
+  </filter>
+  
+  <!-- 필터를 적용할 url 지정 -->
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <!-- 모든 서블릿에 적용 -->
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+  
+  <!-- 서블릿 init 파라미터 적용 -->
+  <!-- 
+  <servlet>
+	  <servlet-name>ContextLoaderServlet</servlet-name>
+	  <servlet-class>servlets.step03.ContextLoaderServlet</servlet-class>
+	  
+	  <init-param>
+	   <param-name>driver</param-name>
+	   <param-value>com.mysql.jdbc.Driver</param-value>
+	  </init-param>
+	  
+	  <init-param>
+     <param-name>url</param-name>
+     <param-value>jdbc:mysql://localhost:3306/bitdb?useUnicode=true&amp;characterEncoding=UTF-8</param-value>
+    </init-param>
+	  
+	  <init-param>
+     <param-name>username</param-name>
+     <param-value>bit</param-value>
+    </init-param>
+	  
+	  <init-param>
+     <param-name>password</param-name>
+     <param-value>1111</param-value>
+    </init-param>
+	  
+	  <load-on-startup>1</load-on-startup>
+  </servlet>
+   -->
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

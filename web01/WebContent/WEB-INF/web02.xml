@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>web01</display-name>
+  <!-- 필터 클래스 선언 -->
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>servlets.step03.CharacterEncodingFilter</filter-class>
+  </filter>
+  
+  <!-- 필터를 적용할 url 지정 -->
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <!-- 모든 서블릿에 적용 -->
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+  
+  
+  <!-- 서블릿 선언 -->
+  <servlet>
+  <servlet-name>ContextLoaderServlet</servlet-name>
+  <servlet-class>servlets.step03.ContextLoaderServlet</servlet-class>
+  
+  <!-- 클라이언트가 요청하지 않아도 첫번째로 이 서블릿을 생성하라 -->
+  <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

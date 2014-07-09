@@ -3,8 +3,11 @@
 //	- 데이터의 지속성(Persistence)을 관리
 //	- Data Access Object(DAO)
 
-package exam.oop3.step04;
+package exam.oop3.step05;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ScoreDao {
@@ -37,4 +40,13 @@ public class ScoreDao {
 	public Object[] toArray() {
 		return scores.toArray();
 	}
+
+	public void save() throws IOException{		
+		File data = new File("f:\\test.csv"); // 상대경로(프로젝트)
+		//System.out.println(data.getAbsolutePath());
+			FileWriter out = new FileWriter(data);
+		for(Score score : scores){
+			
+		}
+  }
 }

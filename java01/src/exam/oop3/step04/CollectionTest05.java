@@ -8,13 +8,11 @@ import java.util.Set;
 /* Collection API 
  * - 값 목록을 다루는 객체
  * 
- *  Map의 도우미 Iterator
- *  	- Iterator는 Map의 데이터를 꺼내 주는 역할을 한다.
- *  	- 일관성 있게 꺼내주기 때문에 프로그램이 일관성을 띠게됨
- *  	- Collection의 종류(List,Set,Map)에 상관 없이 일관된 방식으로 데이터 조회
- *  	- hasNext(), next()
+ *  Collection 인터페이스를 구현한 객체로부터 값 꺼내거나, 배열로부터 값을 꺼낼 때 
+ * - for (타입 변수 : 컬렉션 또는 배열 객체) {
+ *   }
  */
-public class CollectionTest {
+public class CollectionTest05 {
 
 	public static void main(String[] args) {
 		HashMap map = new HashMap(); // 데이터를 순서에 상관없이 관리한다.
